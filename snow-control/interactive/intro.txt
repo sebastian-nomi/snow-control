@@ -1,0 +1,8 @@
+{bright}Welcome to {cyan}CONTROL{end} - 
+the interactive CLI that handles privilege and access control change managemnt in Snowflake
+We are assuming the organization for your snowflake account is {yellow}{ORGANIZATION}{end}
+
+Please enter the following information
+{bright}{cyan}account_name{end} (w/o orgname; default is os.environ['SNOWFLAKE_ACCOUNT']) : [break_for_input]
+{bright}{cyan}user_name{end} ( default is os.environ['SNOWFLAKE_USER']) : [break_for_input]
+{bright}{cyan}password{end} (leave blank for SSO authentication) : [password][break_for_input]
