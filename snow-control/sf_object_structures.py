@@ -17,7 +17,7 @@ DETAILED_OBJECT_TYPE_MAPPER = {
 ALOs = ['warehouse','database','storage integration','notification integration','api integration']
 ALO_FULL_NAME = ['name']
 NLOs = ['table','dynamic table','view','stage','pipe','task','stream',
-        #'tag',
+        'tag',
         'file format']
 FNCs = ['procedure','function']
 NLO_FULL_NAME = ['database_name','schema_name','name']
