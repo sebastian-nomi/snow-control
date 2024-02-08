@@ -103,7 +103,7 @@ def filter_function(obj_type:str, obj_df:pd.DataFrame, ignore_dbs:set, ignore_pa
     
 
 def save_cache(st:ControlState, objects:dict[str,pd.DataFrame]):
-    with open(os.path.join(SCRIPT_DIR,'config',st.account,'.snowcache'),'w') as f:
+    with open(os.path.join(CONFIG_DIR,'config',st.account,'.snowcache'),'w') as f:
 
         f.write(json.dumps(
             {
