@@ -13,9 +13,9 @@ CONFIG_DIR = os.environ.get('CONTROL_CONFIG_DIR',SCRIPT_DIR)
 
 with open(os.path.join(CONFIG_DIR, 'config/atomic_groups.yaml'), 'r') as file:
     ATOMIC_GROUPS  = yaml.safe_load(file)
-with open(os.path.join(CONFIG_DIR,'interactive/intro.txt'),'r') as file: 
+with open(os.path.join(SCRIPT_DIR,'interactive/intro.txt'),'r') as file: 
     CLI_INTRO_TEXT = file.read()
-with open(os.path.join(CONFIG_DIR,'interactive/menu.txt'),'r') as file: 
+with open(os.path.join(SCRIPT_DIR,'interactive/menu.txt'),'r') as file: 
     CLI_MENU_TEXT = file.read()
 
 def clear_cache(account_name:str, files_to_clear = ['.snowcache','.snowplan','.snowplansql']):
