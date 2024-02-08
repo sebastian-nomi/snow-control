@@ -61,6 +61,8 @@ def filter_objects(state:ControlState, objects:dict[str,pd.DataFrame], method:st
     objects['internal stage'] = objects['stage'][objects['stage']['type']=='INTERNAL'].copy()
     objects['external stage'] = objects['stage'][objects['stage']['type']=='EXTERNAL'].copy()
 
+    # Special Consideration: Information Schema Views
+    objects['view'] = objects['view'][objects['view']['schema_name']!='INFORMATION_SCHEMA'].copy()
     # Special Consideration: View
     objects['materialized view'] = objects['view'][objects['view']['is_materialized']=='true'].copy()
     objects['view'] = objects['view'][objects['view']['is_materialized']=='false'].copy()
