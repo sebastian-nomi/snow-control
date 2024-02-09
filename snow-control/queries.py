@@ -13,7 +13,7 @@ GRANTS_TO_USER_QUERY = """
     show grants to user "{user}"
 """
 
-RETRIEVE_GARNTS_TO_USER_QUERY = """
+RETRIEVE_GRANTS_TO_USER_QUERY = """
     select "role" from table(result_scan('{qid}'))
 """
 
