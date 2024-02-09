@@ -132,6 +132,7 @@ def menu_screen(st:ControlState) -> bool:
         print_account_plan(st.account)
     else:
         return False
+    return True
     
 if __name__ == '__main__':
     interactive()
