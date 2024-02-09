@@ -5,6 +5,7 @@ from load import *
 import snowflake.connector as snowcon
 from queries import SET_SEARCH_PATH
 from get_objects import object_scan,filter_objects, save_cache
+from plan import plan
 from control_state import ControlState
 
 from styling import *
@@ -118,7 +119,15 @@ def menu_screen(st:ControlState) -> bool:
         save_cache(
             st,filtered
         )
-
+    elif response == 'plan':
+        roles_string = cli_input('Enter the roles you wish to generate the plan for , separated by a space (default ALL)')
+        target_roles = [role.lower().strip() for role in roles_string.split()] if roles_string else None
+        plan(
+            state = st,
+            account = st.account,
+            roles_to_plan = target_roles,
+            method = 'seq' if method_sequential else 'conc'
+        )
     else:
         return False
     
