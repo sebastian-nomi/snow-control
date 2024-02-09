@@ -44,11 +44,11 @@ def sequential_query_execute(state:ControlState, executable_query:str, print_seq
     try:
         cursor.execute(executable_query)
         if print_seq:
-            print_execution(executable_query, result = '+')
+            print_execution(executable_query, success = '+')
         result = 0 
     except snow_errors.ProgrammingError as pe:
         if print_seq:
-            print_execution(executable_query, result = '-')
+            print_execution(executable_query, success = '-')
         result = pe.errno
     finally:
         return (cursor.sfqid,result)
