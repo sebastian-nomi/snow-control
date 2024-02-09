@@ -10,7 +10,6 @@ from time import localtime,strftime
 from control_state import ControlState
 from itertools import repeat
 
-IGNORED_OBJECT_PATTERNS = get_ignored_object_patterns()
 
 @time_func
 def object_scan(state:ControlState, method = 'conc') -> dict:
@@ -34,7 +33,7 @@ def object_scan(state:ControlState, method = 'conc') -> dict:
         panda['FULL_NAME'] = panda['FULL_NAME'].apply(
             lambda x: process_name(x.replace(' RETURN ',':'), obj_type.upper())
         )
-        panda = panda[panda['FULL_NAME'].apply(lambda x: not any([re.match(pattern) for pattern in IGNORED_OBJECT_PATTERNS]))]
+        panda = panda[panda['FULL_NAME'].apply(lambda name: not object_matches_any(name,state.ignore_patterns))]
         return (obj_type,panda)
 
     if method == 'seq':

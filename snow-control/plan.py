@@ -11,7 +11,7 @@ from load import (
 from sf_object_structures import (
     DETAILED_OBJECT_TYPE_MAPPER,process_name,get_matching,get_futures, pluralize, object_matches_any
 )
-from get_objects import object_scan, IGNORED_OBJECT_PATTERNS
+from get_objects import object_scan
 from queries import CURRENT_GRANTS_TO_ROLE, FUTURE_GRANTS_TO_ROLE,GRANTS_TO_USER_QUERY, RETRIEVE_GRANTS_TO_USER_QUERY
 from styling import time_func, print_formatted_plan
 from control_state import ControlState
@@ -88,7 +88,7 @@ def plan_single_role(state:ControlState, objects,profiles,role,role_config):
         (priv,typ,full_name)
         for priv,typ,full_name in current_state_grants
         if filter(full_name.split('.')[0])
-        and not object_matches_any(full_name,IGNORED_OBJECT_PATTERNS)
+        and not object_matches_any(full_name,state.ignore_objects)
         and (priv,typ) not in UNSUPPORTED_PRIVS
     }
     revoke,ok,grant = venn(current_state_grants,target_state_grants)

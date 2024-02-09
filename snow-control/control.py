@@ -45,6 +45,7 @@ def interactive():
     conn = initialize_connection(account_name = account, username = user, password = password)
     state = ControlState()
     state.account, state.connection = account, conn
+    state.ignore_objects = get_ignored_object_patterns(state.account)
     
     # MAIN MENU
     os.system('clear')
