@@ -6,6 +6,7 @@ import snowflake.connector as snowcon
 from queries import SET_SEARCH_PATH
 from get_objects import object_scan,filter_objects, save_cache
 from plan import plan,print_account_plan
+from sqlpriv import gen_queries
 from control_state import ControlState
 
 from styling import *
@@ -130,6 +131,12 @@ def menu_screen(st:ControlState) -> bool:
             method = 'seq' if method_sequential else 'conc'
         )
         print_account_plan(st.account)
+    elif response == 'show':
+        print_account_plan(st.account)
+    elif response == 'sql':
+        cache_plan = get_plan_from_cache(st.account)
+        queries = gen_queries(cache_plan)
+        show(queries)
     else:
         return False
     return True
