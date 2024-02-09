@@ -5,7 +5,7 @@ from load import *
 import snowflake.connector as snowcon
 from queries import SET_SEARCH_PATH
 from get_objects import object_scan,filter_objects, save_cache
-from plan import plan
+from plan import plan,print_account_plan
 from control_state import ControlState
 
 from styling import *
@@ -128,6 +128,7 @@ def menu_screen(st:ControlState) -> bool:
             roles_to_plan = target_roles,
             method = 'seq' if method_sequential else 'conc'
         )
+        print_account_plan(st.account)
     else:
         return False
     
