@@ -78,7 +78,13 @@ def show(queries:list) -> None:
         print(format_grant('+' if q[0] == 'GRANT' else '-', *q))
 
 def print_execution(executable:str, success = None, end = '\n'):
-    print(f'{Fore.CYAN}{executable}', end = end)
+
+    if success == '+':
+        print(f'{Fore.CYAN}{executable}{GREEN_CHECKMARK}', end = end)
+    elif success == '-':
+        print(f'{Fore.RED}{executable}{RED_X}', end = end)
+    else:
+        print(f'{Fore.CYAN}{executable}', end = end)
 
 def format_grant(delta, *grant): 
     """
