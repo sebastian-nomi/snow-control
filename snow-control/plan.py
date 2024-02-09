@@ -55,7 +55,7 @@ def plan(state:ControlState, account, roles_to_plan, from_cache = True, method =
             for user, config in user_configs.items():
                 user_plan |= plan_single_user(state,user,config)
     else:
-        role_plans, user_plans = {}
+        role_plans, user_plans = {},{}
         role_plans = state.executor.map(
             plan_single_role,
             repeat(state),repeat(objects),repeat(role_profiles),*zip(*role_configs.items())
