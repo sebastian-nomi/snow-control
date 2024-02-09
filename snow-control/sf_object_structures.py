@@ -94,7 +94,7 @@ def get_matching(objects:dict[str,pd.DataFrame], object_type:str, patterns:Itera
     return matches
 
 def object_matches_any(name:str,patterns:list):
-    return any([re.match(pattern,name) for pattern in patterns]) 
+    return any([re.match(pattern,name, re.IGNORECASE) for pattern in patterns]) 
 
 def get_futures(objects:dict[str,pd.DataFrame],object_type:str,patterns:Iterable[str]):
     regexp_match = lambda name: any([re.match(pattern,name) for pattern in patterns])
