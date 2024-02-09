@@ -76,14 +76,11 @@ def plan_single_role(state:ControlState, objects,profiles,role,role_config):
     shared_databases = set(objects['shared database']['name'])
     associated_profiles = role_config['profiles']
 
-    print(f"Associated Profiles: {associated_profiles}")
-    
 
     for assoc_prof in associated_profiles:
         for profile_name, profile_parameters in assoc_prof.items():
             profile_config = profiles[profile_name]
             target_state_grants |= profile_to_grants(objects,profile_config,**profile_parameters)
-    print(f"Target State {target_state_grants}")
     current_state_grants = get_current_grants_to_role(state,role) | get_future_grants_to_role(state,role)
 
     filter = lambda db: db not in shared_databases
@@ -129,7 +126,6 @@ def profile_to_grants(all_objects:dict,profile:dict, **requires) -> set:
             continue
         for priv,objects in object_privs.items():
             formatted = [obj.format(**requires).upper() + '$' for obj in objects]
-            print(f'FORMATTED REGEXP MATCH : {formatted}')
             matched_objects = get_matching(all_objects,object_type,formatted)
             futures = get_futures(
                 all_objects,
@@ -177,7 +173,7 @@ def get_current_grants_to_role(state,role):
         (
             priv,
             DETAILED_OBJECT_TYPE_MAPPER.get(typ.lower(),typ).upper(),
-            process_name(name,'schema')
+            process_name(name,typ.upper())
         )
         for priv,typ,name in results
         # Necessary to avoid running into errors with new SF preview objects
