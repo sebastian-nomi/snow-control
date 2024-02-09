@@ -56,12 +56,12 @@ def print_formatted_plan(plan:dict, grants_to = 'ROLE', verbosity = 3) -> None:
 
         if config['to_revoke'] or verbosity >=3: 
             print(f'{Style.BRIGHT+Fore.CYAN}PRIVILEGES TO BE {Style.BRIGHT + Fore.RED}REVOKED:', end = '\n\n')
-            for minus in sorted(config['to_revoke'], key = lambda x: x[1] + x[2] + x[3]): 
+            for minus in sorted(config['to_revoke'], key = lambda x: x[1] + x[2] + x[0]): 
                 print(Fore.RED + format_privilege(*minus, delta = '-'))
             print('\n')
         if config['to_grant'] or verbosity >=3: 
             print(f'{Style.BRIGHT+Fore.CYAN}PRIVILEGES TO BE {Style.BRIGHT + Fore.GREEN}GRANTED:', end = '\n\n')
-            for minus in sorted(config['to_grant'], key = lambda x: x[1] + x[2] + x[3]): 
+            for minus in sorted(config['to_grant'], key = lambda x: x[1] + x[2] + x[0]): 
                 print(Fore.GREEN + format_privilege(*minus, delta = '-'))
             print('\n')
         if verbosity >=2: 
