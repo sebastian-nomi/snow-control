@@ -130,6 +130,7 @@ def profile_to_grants(all_objects:dict,profile:dict, **requires) -> set:
         for priv,objects in object_privs.items():
             formatted = [obj.format(**requires).upper() + '$' for obj in objects]
             matched_objects = get_matching(all_objects,object_type,formatted)
+            print(f'PRIV:{priv}\n{matched_objects}')
             futures = get_futures(
                 all_objects,
                 object_type,
