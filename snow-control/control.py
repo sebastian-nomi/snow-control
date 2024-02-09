@@ -139,6 +139,7 @@ def menu_screen(st:ControlState) -> bool:
         show(queries)
     else:
         return False
+    cli_input('\n'*4 + 'To continue press any key')
     return True
     
 if __name__ == '__main__':
