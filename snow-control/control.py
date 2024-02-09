@@ -135,7 +135,7 @@ def menu_screen(st:ControlState) -> bool:
         print_account_plan(st.account)
     elif response == 'sql':
         cache_plan = get_plan_from_cache(st.account)
-        queries = gen_queries(cache_plan)
+        queries = gen_queries(st.account, cache_plan)
         show(queries)
     else:
         return False
