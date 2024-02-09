@@ -67,7 +67,7 @@ def plan(state:ControlState, account, roles_to_plan, from_cache = True, method =
                 *zip(*user_configs.items())
             )
         role_plan  = reduce(lambda x,y: x|y, role_plans)
-        user_plan = reduce(lambda x,y: x|y, user_plans)
+        user_plan = reduce(lambda x,y: x|y, user_plans, {})
     write_out_snowplan(account,role_plan,user_plan,plan_id = PLAN_ID)
     # log_snowplan(state,account)
 
