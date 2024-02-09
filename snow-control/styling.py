@@ -5,7 +5,8 @@ import os
 from getpass import getpass
 
 CHECKMARK = '\u2714'
-RED_X = ' X '
+GREEN_CHECKMARK = Fore.GREEN + Style.BRIGHT + CHECKMARK  + Style.RESET_ALL
+RED_X = Fore.RED + Style.BRIGHT+' X ' + Style.RESET_ALL
 STYLING = {
     'bright': Style.BRIGHT, 
     'dim':Style.DIM,
@@ -75,6 +76,9 @@ def print_formatted_plan(plan:dict, grants_to = 'ROLE', verbosity = 3) -> None:
 def show(queries:list) -> None:
     for q in queries:
         print(format_grant('+' if q[0] == 'GRANT' else '-', *q))
+
+def print_execution(executable:str, success = None, end = '\n'):
+    print(f'{Fore.CYAN}{executable}', end = end)
 
 def format_grant(delta, *grant): 
     """

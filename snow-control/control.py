@@ -8,6 +8,7 @@ from get_objects import object_scan,filter_objects, save_cache
 from plan import plan,print_account_plan
 from sqlpriv import gen_queries
 from control_state import ControlState
+from apply import apply
 
 from styling import *
 
@@ -128,7 +129,7 @@ def menu_screen(st:ControlState) -> bool:
             state = st,
             account = st.account,
             roles_to_plan = target_roles,
-            method = 'seq' if method_sequential else 'conc'
+            method = 'seq' if method_sequential else 'conc' # default conc
         )
         print_account_plan(st.account)
     elif response == 'show':
@@ -137,6 +138,15 @@ def menu_screen(st:ControlState) -> bool:
         cache_plan = get_plan_from_cache(st.account)
         queries = gen_queries(st.account, cache_plan)
         show(queries)
+    elif response == 'apply':
+        cache_plan = get_plan_from_cache(st.account)
+        executables = [' '.join(q) for q in gen_queries(st.account,cache_plan)]
+        apply(
+            st,
+            plan_id = cache_plan['plan_id'],
+            executables = executables,
+            method = 'conc' if method_concurrent else 'seq' # default seq
+        )
     else:
         return False
     cli_input('\n'*4 + 'To continue press any key')
