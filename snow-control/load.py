@@ -91,8 +91,8 @@ def get_unsupported_privs():
         ]
     return unsupported_privs
 
-def get_ignored_object_patterns():
-    with open(os.path.join(CONFIG_DIR,'ignore','objects.yaml')) as f: 
+def get_ignored_object_patterns(account:str):
+    with open(os.path.join(CONFIG_DIR,account,'ignore','objects.yaml')) as f: 
         PATTERNS = [f"^{pattern.upper()}$" for pattern in yaml.safe_load(f)['full_name_patterns']]
     return PATTERNS
 
