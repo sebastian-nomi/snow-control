@@ -1,0 +1,5 @@
+
+apply:
+  - future tags in schema
+references:
+  - future dynamic tables in schema

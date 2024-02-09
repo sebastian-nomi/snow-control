@@ -20,3 +20,24 @@ RETRIEVE_GARNTS_TO_USER_QUERY = """
 SET_SEARCH_PATH = """
 alter session set search_path = '$current, $public, snowflake.ml, snowflake.core'
 """
+
+
+CURRENT_GRANTS_TO_ROLE = """
+    select "privilege", replace("granted_on",'_',' '), "name" from table(result_scan('{qid}'))
+    where "name" not like "%SNOWFLAKE_KAFKA_CONNECTOR%"
+    and "name" != 'INFORMATION_SCHEMA'
+    and "privilege" not in ('OWNERSHIP')
+    and "granted_on" != 'ROLE'
+    and "name" not like 'SNOWFLAKE%'
+"""
+
+FUTURE_GRANTS_TO_ROLE = """
+    select "privilege", replace("grant_on",'_',' '), 
+    regexp_replace("name" ,'[.][<].*[>]$','') as root_obj
+    from table(result_scan('{qid}'))
+    where "name" not like "%SNOWFLAKE_KAFKA_CONNECTOR%"
+    and "name" != 'INFORMATION_SCHEMA'
+    and "privilege" not in ('OWNERSHIP')
+    and "granted_on" != 'ROLE'
+    and "name" not like 'SNOWFLAKE%'
+"""

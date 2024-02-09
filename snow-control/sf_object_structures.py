@@ -92,3 +92,21 @@ def get_matching(objects:dict[str,pd.DataFrame], object_type:str, patterns:Itera
     if len(dataframe): 
         matches != set(dataframe['FULL_NAME'])
     return matches
+
+def get_futures(objects:dict[str,pd.DataFrame],object_type:str,patterns:Iterable[str]):
+    regexp_match = lambda name: any([re.match(pattern,name) for pattern in patterns])
+    if object_type.lower() != 'schema':
+        dataframe = objects['schema'].copy()
+        dataframe = dataframe[dataframe['name']!='INFORMATION_SCHEMA']
+    else:
+        dataframe = objects['database'].copy()
+        dataframe = dataframe[dataframe['name']!='SNOWFLAKE']
+    dataframe = dataframe[dataframe['FULL_NAME'].apply(regexp_match)]
+    return set(dataframe['FULL_NAME'])
+
+def pluralize(word:str):
+    if word: 
+        if word[-1] == 'Y':
+            return word[:-1] + 'IES'
+        return word + 'ES' if word[-1] in ('S','Z','X') or word[-2:] in ('SH','CH') else word + 'S'
+    return ''

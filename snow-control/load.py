@@ -82,6 +82,15 @@ def write_out_snowplan(account:str, role_snowplan:dict, user_snowplan:dict = {},
             )
         )
 
+def get_unsupported_privs():
+    with open(os.path.join(SCRIPT_DIR,'ignore','privs.yaml')) as f: 
+        unsupported_privs = [
+            (priv.upper(), target_type.upper())
+            for priv,target_type in yaml.safe_load(f).items()
+            for target_type in target_type
+        ]
+    return unsupported_privs
+
 def write_out_sql_snowplan(account:str, executables:list):
     with open(os.path.join(CONFIG_DIR,f'config/{account}/.snowplansql'),'w') as f:
         f.write(
