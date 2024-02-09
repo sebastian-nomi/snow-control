@@ -118,6 +118,7 @@ def profile_to_grants(all_objects:dict,profile:dict, **requires) -> set:
             a collection of atomic groups on objects matching regex patterns
         ) to a list of atomic privileges
     """
+    print(f'ALL : {all_objects}')
     grants = []
     future_grants = []
     for object_type, object_privs in profile['privileges'].items():

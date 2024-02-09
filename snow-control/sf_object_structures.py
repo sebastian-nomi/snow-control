@@ -85,7 +85,7 @@ def get_matching(objects:dict[str,pd.DataFrame], object_type:str, patterns:Itera
     # .
     # re.match('{pattern_n}', full_name)
     regexp_match = lambda name: any([re.match(pattern, name) for pattern in patterns])
-
+    print(f'OBJECTTYPE: {object_type}')
     dataframe = dataframe[dataframe['FULL_NAME'].apply(regexp_match)]
     if object_type == 'view': 
         dataframe = dataframe[dataframe['schema_name']!= 'INFORMATION_SCHEMA']
