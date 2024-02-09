@@ -38,6 +38,6 @@ FUTURE_GRANTS_TO_ROLE = """
     where "name" not like '%SNOWFLAKE_KAFKA_CONNECTOR%'
     and "name" != 'INFORMATION_SCHEMA'
     and "privilege" not in ('OWNERSHIP')
-    and "granted_on" != 'ROLE'
+    and "grant_on" != 'ROLE'
     and "name" not like 'SNOWFLAKE%'
 """
