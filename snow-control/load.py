@@ -91,6 +91,12 @@ def get_unsupported_privs():
         ]
     return unsupported_privs
 
+def get_ignored_object_patterns():
+    with open(os.path.join(CONFIG_DIR,'ignore','objects.yaml')) as f: 
+        PATTERNS = [f"^{pattern.upper()}$" for pattern in yaml.safe_load(f)['full_name_patterns']]
+    return PATTERNS
+
+
 def write_out_sql_snowplan(account:str, executables:list):
     with open(os.path.join(CONFIG_DIR,f'config/{account}/.snowplansql'),'w') as f:
         f.write(

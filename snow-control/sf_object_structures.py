@@ -27,6 +27,7 @@ FNC_FULL_NAME = ['catalog_name','schema_name','arguments']
 GET_FULL_NAME = {alo:ALO_FULL_NAME for alo in ALOs} | {'schema':['database_name','name']} | {nlo:NLO_FULL_NAME for nlo in NLOs} | {fnc:FNC_FULL_NAME for fnc in FNCs}
 
 
+
 def process_name(name:str, obj_type:str) -> str:
     """
         Snowflake has an extremely irregular way of standardizing the fully qualified name for functions (esp external functions)
@@ -84,13 +85,16 @@ def get_matching(objects:dict[str,pd.DataFrame], object_type:str, patterns:Itera
     # .
     # .
     # re.match('{pattern_n}', full_name)
-    regexp_match = lambda name: any([re.match(pattern, name) for pattern in patterns])
+    regexp_match = lambda name: object_matches_any(name,patterns)
     dataframe = dataframe[dataframe['FULL_NAME'].apply(regexp_match)]
     if object_type == 'view': 
         dataframe = dataframe[dataframe['schema_name']!= 'INFORMATION_SCHEMA']
     if len(dataframe): 
         matches |= set(dataframe['FULL_NAME'])
     return matches
+
+def object_matches_any(name:str,patterns:list):
+    return any([re.match(pattern,name) for pattern in patterns]) 
 
 def get_futures(objects:dict[str,pd.DataFrame],object_type:str,patterns:Iterable[str]):
     regexp_match = lambda name: any([re.match(pattern,name) for pattern in patterns])
