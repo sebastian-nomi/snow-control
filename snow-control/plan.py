@@ -140,10 +140,10 @@ def profile_to_grants(all_objects:dict,profile:dict, **requires) -> set:
                 for matched_object in matched_objects
             ]
             target_future = f"FUTURE {pluralize(generic_object_type).upper()} IN {'DATABASE' if object_type.lower() == 'schema' else 'SCHEMA'}"
-            futures += [
+            future_grants += [
                 (atomic_priv.upper(),target_future,f.upper())
                 for atomic_priv in ATOMIC_GROUPS[object_type][priv]
-                for f in matched_objects
+                for f in futures
             ]
     return {grant for grant in set(grants) | set(future_grants) if (grant[0],grant[1]) not in UNSUPPORTED_PRIVS}
 
