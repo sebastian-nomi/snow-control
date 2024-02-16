@@ -129,7 +129,8 @@ def menu_screen(st:ControlState) -> bool:
             state = st,
             account = st.account,
             roles_to_plan = target_roles,
-            method = 'seq' if method_sequential else 'conc' # default conc
+            method = 'seq' if method_sequential else 'conc', # default conc,
+            plan_users = False if target_roles else True
         )
         print_account_plan(st.account)
     elif response == 'show':
