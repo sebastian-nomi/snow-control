@@ -225,5 +225,5 @@ def print_account_plan(state:ControlState) -> None:
     plan = get_plan_from_cache(account = state.account)
     role_plan = plan['ROLES']
     user_plan = plan['USERS']
-    state.print_formatted_plan(role_plan,grants_to = 'ROLE', verbosity = 1)
-    state.print_formatted_plan(user_plan,grants_to = 'USER', verbosity = 1)
+    state.print_formatted_plan(role_plan,grants_to = 'ROLE')
+    state.print_formatted_plan(user_plan,grants_to = 'USER')
