@@ -13,7 +13,7 @@ from sf_object_structures import (
 )
 from get_objects import object_scan
 from queries import CURRENT_GRANTS_TO_ROLE, FUTURE_GRANTS_TO_ROLE,GRANTS_TO_USER_QUERY, RETRIEVE_GRANTS_TO_USER_QUERY
-from styling import time_func, print_formatted_plan
+from styling import time_func
 from control_state import ControlState
 import time
 from itertools import repeat
@@ -221,9 +221,9 @@ def get_current_users_roles(state:ControlState,user:str)-> set:
 def log_snowplan(state,account):
     pass
 
-def print_account_plan(account:str, description_level = None) -> None:
-    plan = get_plan_from_cache(account = account)
+def print_account_plan(state:ControlState) -> None:
+    plan = get_plan_from_cache(account = state.account)
     role_plan = plan['ROLES']
     user_plan = plan['USERS']
-    print_formatted_plan(role_plan,grants_to = 'ROLE', verbosity = 1)
-    print_formatted_plan(user_plan,grants_to = 'USER', verbosity = 1)
+    state.print_formatted_plan(role_plan,grants_to = 'ROLE', verbosity = 1)
+    state.print_formatted_plan(user_plan,grants_to = 'USER', verbosity = 1)

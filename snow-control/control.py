@@ -132,9 +132,9 @@ def menu_screen(st:ControlState) -> bool:
             method = 'seq' if method_sequential else 'conc', # default conc,
             plan_users = False if target_roles else True
         )
-        print_account_plan(st.account)
+        print_account_plan(st)
     elif response == 'show':
-        print_account_plan(st.account)
+        print_account_plan(st)
     elif response == 'sql':
         cache_plan = get_plan_from_cache(st.account)
         queries = gen_queries(st.account, cache_plan)
