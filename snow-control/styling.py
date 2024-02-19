@@ -43,36 +43,6 @@ def format_privilege(privilege:str, object_type:str, object_name:str, delta:str)
     """
     return f"{delta:4} {privilege:40} {object_type:20} {object_name}"
 
-def print_formatted_plan(plan:dict, grants_to = 'ROLE', verbosity = 3) -> None: 
-    TABLE_FLIP = '(╯°□°)╯︵ ┻━┻'
-    print('\n'*4)
-    for recipient, config in plan.items(): 
-        # SKIP if all good!
-        if not config['to_revoke'] and not config['to_grant']: 
-            if verbosity >= 3: 
-                print(f'{Style.BRIGHT + Fore.YELLOW}{grants_to}: {recipient}')
-                print(f'{Style.BRIGHT + Fore.CYAN}ALL_GOOD!:({len(config["ok"])}:0) {TABLE_FLIP}', end = '\n\n')
-            continue
-        print(f'{Style.BRIGHT + Fore.YELLOW}{grants_to}: {recipient}')
-
-        if config['to_revoke'] or verbosity >=3: 
-            print(f'{Style.BRIGHT+Fore.CYAN}PRIVILEGES TO BE {Style.BRIGHT + Fore.RED}REVOKED:', end = '\n\n')
-            for minus in sorted(config['to_revoke'], key = lambda x: x[1] + x[2] + x[0]): 
-                print(Fore.RED + format_privilege(*minus, delta = '-'))
-            print('\n')
-        if config['to_grant'] or verbosity >=3: 
-            print(f'{Style.BRIGHT+Fore.CYAN}PRIVILEGES TO BE {Style.BRIGHT + Fore.GREEN}GRANTED:', end = '\n\n')
-            for minus in sorted(config['to_grant'], key = lambda x: x[1] + x[2] + x[0]): 
-                print(Fore.GREEN + format_privilege(*minus, delta = '-'))
-            print('\n')
-        if verbosity >=2: 
-            print(f'{Style.BRIGHT}Grant Deltas: {recipient}')
-            print(f'{Style.BRIGHT+Fore.RED}- {len(config["to_revoke"])}')
-            print(f'{Style.BRIGHT+Fore.CYAN}= {len(config["ok"])}')
-            print(f'{Style.BRIGHT+Fore.GREEN}+ {len(config["to_grant"])}')
-            print('==================')
-            print(f'{Style.BRIGHT}T {len(config["to_revoke"]) + len(config["ok"]) + len(config["to_grant"])}')
-
 def show(queries:list) -> None:
     for q in queries:
         print(format_grant('+' if q[0] == 'GRANT' else '-', *q))
