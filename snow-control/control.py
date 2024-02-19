@@ -111,7 +111,7 @@ def menu_screen(st:ControlState) -> bool:
         clear_cache(st.account)
     elif response == 'get':
         print('\n')
-        print(f'Getting latest list of objects in account {Style.BRIGHT + Fore.YELLOW}{st.account}')
+        st.print(f'Getting latest list of objects in account {Style.BRIGHT + Fore.YELLOW}{st.account}')
         objects = object_scan(
             st,
             method = 'seq' if method_sequential else 'conc'
