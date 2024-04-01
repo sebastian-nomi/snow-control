@@ -80,7 +80,7 @@ def plan_single_role(state:ControlState, objects,profiles,role,role_config):
     for assoc_prof in associated_profiles:
         for profile_name, profile_parameters in assoc_prof.items():
             profile_config = profiles[profile_name]
-            target_state_grants |= profile_to_grants(objects,profile_config,**profile_parameters)
+            target_state_grants |= profile_to_grants(state,objects,profile_name,profile_config,**profile_parameters)
     current_state_grants = get_current_grants_to_role(state,role) | get_future_grants_to_role(state,role)
 
     filter = lambda db: db not in shared_databases
@@ -110,12 +110,14 @@ def plan_single_user(state:ControlState, user:str, target_state:set):
             'to_grant':[ ['USAGE','ROLE',role] for role in to_grant]
         }
     }
-def profile_to_grants(all_objects:dict,profile:dict, **requires) -> set: 
+def profile_to_grants(state:ControlState,all_objects:dict,profile_name:str, profile:dict, **requires) -> set: 
     """
         This function converts a role profile (
             a collection of atomic groups on objects matching regex patterns
         ) to a list of atomic privileges
     """
+    param_string = [f'{k}={repr(v)}' for k,v in requires.items()]
+    state.print(f"Beginning conversion of profile {profile_name}({','.join(param_string)})")
     grants = []
     future_grants = []
     for object_type, object_privs in profile['privileges'].items():
