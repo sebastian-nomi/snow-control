@@ -21,7 +21,8 @@ class ControlState:
             Print out the formatted plan with the following information: 
             NO DELTAS: 
                 Verbosity 0,1 Print Nothing 
-                Verbosity 2,3: Print "all good"
+                Verbosity 2: Print checkmark
+                Verbosity 3: Print "all good"
                 Verbosity 4+: Print "grant deltas" summary
             DELTAS:
                 Verbosity 0,1,2: Print only the categories that have deltas
@@ -33,9 +34,10 @@ class ControlState:
         for recipient, config in plan.items(): 
             # NO DELTAS
             if not config['to_revoke'] and not config['to_grant']: 
-                self.print(f'{Style.BRIGHT + Fore.YELLOW}{grants_to}: {recipient}',verbosity_level=2, end = '\t\t')
-                self.print(f'{Style.BRIGHT + Fore.CYAN}ALL_GOOD!:({len(config["ok"])}:0) {TABLE_FLIP}', verbosity_level=2, end = '\n\n')
+                self.print(f'{Style.BRIGHT + Fore.YELLOW}{grants_to}: {recipient} \t {GREEN_CHECKMARK}',verbosity_level=2,)
+                self.print(f'{Style.BRIGHT + Fore.CYAN}ALL_GOOD!:({len(config["ok"])}:0) {TABLE_FLIP}', verbosity_level=3, end = '\n')
             else:
+                print('\n')
                 self.print(f'{Style.BRIGHT + Fore.YELLOW}{grants_to}: {recipient}')
 
                 if config['to_revoke'] or self.verbosity >= 3: 
