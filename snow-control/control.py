@@ -45,7 +45,7 @@ def interactive():
         print(f'PASSWORD is blank, starting SSO auth for user {user}')
     
     conn = initialize_connection(account_name = account, username = user, password = password)
-    state = ControlState()
+    state = ControlState(verbosity = 3)
     state.account, state.connection = account, conn
     state.ignore_objects = get_ignored_object_patterns(state.account)
     
@@ -109,6 +109,13 @@ def menu_screen(st:ControlState) -> bool:
 
     if response == 'clear':
         clear_cache(st.account)
+    elif response == 'debug':
+        if params and params[0].isnumeric(): 
+            debug_level = int(params[0])
+            print(f'Setting verbosity level: {debug_level}')
+            st.verbosity = debug_level
+        else:
+            print(f'Improper verbosity level : {debug_level}')
     elif response == 'get':
         print('\n')
         st.print(f'Getting latest list of objects in account {Style.BRIGHT + Fore.YELLOW}{st.account}')
