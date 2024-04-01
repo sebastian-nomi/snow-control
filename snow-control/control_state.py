@@ -12,7 +12,7 @@ class ControlState:
         self.executor.shutdown()
     
     def print(self,message,  verbosity_level = 0, **kwargs):
-        if verbosity_level >= self.verbosity:
+        if verbosity_level <= self.verbosity:
             print(message, **kwargs)
 
     

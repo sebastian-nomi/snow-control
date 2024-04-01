@@ -45,7 +45,7 @@ def interactive():
         print(f'PASSWORD is blank, starting SSO auth for user {user}')
     
     conn = initialize_connection(account_name = account, username = user, password = password)
-    state = ControlState()
+    state = ControlState(verbosity_level = 3)
     state.account, state.connection = account, conn
     state.ignore_objects = get_ignored_object_patterns(state.account)
     
