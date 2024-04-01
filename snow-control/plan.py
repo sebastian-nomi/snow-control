@@ -117,7 +117,7 @@ def profile_to_grants(state:ControlState,all_objects:dict,profile_name:str, prof
         ) to a list of atomic privileges
     """
     param_string = [f'{k}={repr(v)}' for k,v in requires.items()]
-    state.print(f"Beginning conversion of profile {profile_name}({','.join(param_string)})")
+    state.print(f"Beginning conversion of profile {profile_name}({','.join(param_string)})", verbosity_level=5)
     grants = []
     future_grants = []
     for object_type, object_privs in profile['privileges'].items():
