@@ -164,9 +164,11 @@ def gen_acct_level_grants(account_privilege_profile:dict) -> str:
 
 def get_current_grants_to_role(state,role):
     cur = state.connection.cursor()
+    state.print(f'Executing show query on role {role}', verbosity_level = 4)
     cur.execute(f'show grants to role {role}')
     qid = cur.sfqid
-
+    
+    state.print(f'Retrieving current grants to role {role}', verbosity_level = 3)
     results = set(list(cur.execute(
         CURRENT_GRANTS_TO_ROLE.format(qid = qid)
     )))
@@ -183,9 +185,11 @@ def get_current_grants_to_role(state,role):
 
 def get_future_grants_to_role(state,role):
     cur = state.connection.cursor()
+    state.print(f'Executing show future query on role {role}', verbosity_level = 4)
     cur.execute(f'show future grants to role {role}')
     qid = cur.sfqid
 
+    state.print(f'Retrieving future grants to role {role}', verbosity_level = 3)
     results = set(list(cur.execute(
         FUTURE_GRANTS_TO_ROLE.format(qid = qid)
     )))
@@ -211,9 +215,11 @@ def venn(set1:set, set2:set) -> Tuple[set,set,set]:
 
 def get_current_users_roles(state:ControlState,user:str)-> set:
     cur = state.connection.cursor()
+    state.print(f'Executing show query on user {user}', verbosity_level = 4)
     query = GRANTS_TO_USER_QUERY.format(user=user)
     cur.execute(query)
     qid = cur.sfqid
+    state.print(f'Retrieving current grants to user {user}', verbosity_level = 3)
     roles_granted = set(x for x, in cur.execute(RETRIEVE_GRANTS_TO_USER_QUERY.format(qid =qid)).fetchall())
     return roles_granted
 
