@@ -20,20 +20,24 @@ def object_scan(state:ControlState, method = 'conc') -> dict:
         obj_type, key = item
         cur = conn.cursor()
         formatted_query = (INTEGRATION_SHOW_QUERY if obj_type.upper().endswith('INTEGRATION') else SHOW_QUERY).format(obj_type)
+        state.print(f'Executing show query on object type {obj_type}', verbosity_level=4)
         cur.execute(formatted_query)
         qid = cur.sfqid
+        state.print(f'Retrieving objects of type {obj_type} in account', verbosity_level=3)
         panda = cur.execute(
             NAME_QUERY.format(
                 qid = qid, 
                 key = ','.join([f'"{s}"' for s in key])
             )
         ).fetch_pandas_all()
+
         if obj_type.upper() in ('PROCEDURE','FUNCTION'):
             panda = panda[panda['is_builtin'] == 'N']
         panda['FULL_NAME'] = panda['FULL_NAME'].apply(
             lambda x: process_name(x.replace(' RETURN ',':'), obj_type.upper())
         )
         panda = panda[panda['FULL_NAME'].apply(lambda name: not object_matches_any(name,state.ignore_objects))]
+        
         return (obj_type,panda)
 
     if method == 'seq':
