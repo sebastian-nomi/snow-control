@@ -33,21 +33,21 @@ class ControlState:
         for recipient, config in plan.items(): 
             # NO DELTAS
             if not config['to_revoke'] and not config['to_grant']: 
-                self.print(f'{Style.BRIGHT + Fore.YELLOW}{grants_to}: {recipient}',verbosity_level=2)
+                self.print(f'{Style.BRIGHT + Fore.YELLOW}{grants_to}: {recipient}',verbosity_level=2, end = '\t\t')
                 self.print(f'{Style.BRIGHT + Fore.CYAN}ALL_GOOD!:({len(config["ok"])}:0) {TABLE_FLIP}', verbosity_level=2, end = '\n\n')
             else:
                 self.print(f'{Style.BRIGHT + Fore.YELLOW}{grants_to}: {recipient}')
 
-            if config['to_revoke'] or self.verbosity >= 3: 
-                self.print(f'{Style.BRIGHT+Fore.CYAN}PRIVILEGES TO BE {Style.BRIGHT + Fore.RED}REVOKED:', end = '\n\n')
-                for minus in sorted(config['to_revoke'], key = lambda x: x[1] + x[2] + x[0]): 
-                    self.print(Fore.RED + format_privilege(*minus, delta = '-'))
-                self.print('\n')
-            if config['to_grant'] or self.verbosity >=3: 
-                self.print(f'{Style.BRIGHT+Fore.CYAN}PRIVILEGES TO BE {Style.BRIGHT + Fore.GREEN}GRANTED:', end = '\n\n')
-                for minus in sorted(config['to_grant'], key = lambda x: x[1] + x[2] + x[0]): 
-                    self.print(Fore.GREEN + format_privilege(*minus, delta = '-'))
-                self.print('\n')
+                if config['to_revoke'] or self.verbosity >= 3: 
+                    self.print(f'{Style.BRIGHT+Fore.CYAN}PRIVILEGES TO BE {Style.BRIGHT + Fore.RED}REVOKED:', end = '\n\n')
+                    for minus in sorted(config['to_revoke'], key = lambda x: x[1] + x[2] + x[0]): 
+                        self.print(Fore.RED + format_privilege(*minus, delta = '-'))
+                    self.print('\n')
+                if config['to_grant'] or self.verbosity >=3: 
+                    self.print(f'{Style.BRIGHT+Fore.CYAN}PRIVILEGES TO BE {Style.BRIGHT + Fore.GREEN}GRANTED:', end = '\n\n')
+                    for minus in sorted(config['to_grant'], key = lambda x: x[1] + x[2] + x[0]): 
+                        self.print(Fore.GREEN + format_privilege(*minus, delta = '-'))
+                    self.print('\n')
 
             GRANT_SUMMARY_VERBOSITY = 4
             self.print(f'{Style.BRIGHT}Grant Deltas: {recipient}', verbosity_level = GRANT_SUMMARY_VERBOSITY )
