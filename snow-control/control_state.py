@@ -4,9 +4,9 @@ from styling import *
 
 class ControlState:
     __slots__ = 'connection', 'account', 'executor','snowcache','snowplan','queries','ignore_objects','verbosity'
-    def __init__(self, max_workers = 100):
+    def __init__(self, verbosity = 3, max_workers = 100):
         self.executor = ThreadPoolExecutor(max_workers=max_workers)
-        self.verbosity = 0 
+        self.verbosity = verbosity
 
     def __del__(self): 
         self.executor.shutdown()
