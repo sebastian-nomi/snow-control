@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "snow_control"
+version = "0.0.1"
+description = "Raz please fill out"
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+[tool.ruff]
+extend-exclude = [
+    "bazel-*",
+    "lambdas_archive",
+    "layers/src_ndl/src_garfql_async_client/garfql_client",
+    "layers/src_ndl/src_garfql_sync_client/garfql_client",
+    "layers_archive",
+    "pkg",
+]
+
+[tool.ruff.lint]
+extend-select = ["I"]
+ignore = [
+    "E402", # Module level import not at top of file
+    "E711", # Comparison to `None` should be `cond is None`
+    "E712", # Comparison to `False` should be `cond is False` or `if not cond:`
+    "E713", # Test for membership should be `not in`
+    "E721", # Do not compare types, use `isinstance()`
+    "E722", # Do not use bare `except`
+    "E731", # Do not assign a `lambda` expression, use a `def`
+    "F401", # Name imported but unused
+    "F403", # ‘from module import *’ used; unable to detect undefined names
+    "F405", # Name may be undefined, or defined from star imports
+    "F524", # `.format` call is missing argument(s) for placeholder(s)
+    "F541", # f-string without any placeholders
+    "F601", # Dictionary key literal repeated
+    "F811", # Redefinition of unused name
+    "F841", # Local variable is assigned to but never used
+]

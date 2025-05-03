@@ -1,4 +1,3 @@
-
 SHOW_QUERY = "show {}s in account"
 
 INTEGRATION_SHOW_QUERY = "show {}s"
@@ -32,7 +31,7 @@ CURRENT_GRANTS_TO_ROLE = """
 """
 
 FUTURE_GRANTS_TO_ROLE = """
-    select "privilege", replace("grant_on",'_',' '), 
+    select "privilege", replace("grant_on",'_',' '),
     regexp_replace("name" ,'[.][<].*[>]$','') as root_obj
     from table(result_scan('{qid}'))
     where "name" not like '%SNOWFLAKE_KAFKA_CONNECTOR%'

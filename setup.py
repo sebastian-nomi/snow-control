@@ -1,0 +1,42 @@
+from setuptools import setup
+
+setup(
+    data_files=[
+        (
+            "interactive",
+            [
+                "src/snow_control/interactive/menu.txt",
+                "src/snow_control/interactive/intro.txt",
+            ],
+        ),
+        ("ignore", ["src/snow_control/ignore/privs.yaml"]),
+    ],
+    install_requires=[
+        "asn1crypto==1.5.1",
+        "certifi==2025.4.26",
+        "cffi==1.17.1",
+        "charset-normalizer==2.1.1",
+        "colorama==0.4.6",
+        "cryptography==40.0.2",
+        "filelock==3.18.0",
+        "idna==3.10",
+        "numpy==1.26.4",
+        "oscrypto==1.3.0",
+        "packaging==25.0",
+        "pandas==1.5.3",
+        "pyarrow==10.0.1",
+        "pycparser==2.22",
+        "pycryptodomex==3.22.0",
+        "PyJWT==2.10.1",
+        "pyOpenSSL==23.2.0",
+        "python-dateutil==2.9.0.post0",
+        "pytz==2025.2",
+        "PyYAML==6.0.2",
+        "requests==2.32.3",
+        "six==1.17.0",
+        "snowflake-connector-python==3.0.1",
+        "typing_extensions==4.13.2",
+        "tzdata==2025.2",
+        "urllib3==1.26.20",
+    ],
+)

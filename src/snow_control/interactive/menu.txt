@@ -1,7 +1,7 @@
-Enter one of the following options: 
+Enter one of the following options:
 {bright}{cyan}clear{end}:   clears the current caches(all of them)
 {bright}{green}get{end}:    refreshes the current cached registry of SF objects
-{bright}{green}plan{end}:   uses the current cached registry of SF objects combined with the current role config to plan changes and generate a cached snowplan file in the account. 
+{bright}{green}plan{end}:   uses the current cached registry of SF objects combined with the current role config to plan changes and generate a cached snowplan file in the account.
 {bright}{green}user{end}:   uses the generated cached snowplan + the user config to show changes at the user level
 {bright}{green}show{end}:   show the current cached snowplan
 {bright}{green}sql{end}:    uses the generated cached snowplan to show the exact SQL queries that will be executed
@@ -13,9 +13,7 @@ You can add either 'seq' or 'conc' after each step to make sure the code execute
 {bright}{yellow}seq{end}        (default for apply) code is executed sequentially for optimal debugging/visibility
 {bright}{yellow}conc{end}       (default for get/plan) code is executed concurrently for optimal performance
 
-Example commands: 
+Example commands:
 -   {yellow}get{end}
 -   {yellow}plan seq{end}
 -   {yellow}apply conc{end}
-
-
