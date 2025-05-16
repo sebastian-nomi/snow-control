@@ -1,4 +1,4 @@
-{bright}Welcome to {cyan}CONTROL{end} - 
+{bright}Welcome to {cyan}CONTROL{end} -
 the interactive CLI that handles privilege and access control change managemnt in Snowflake
 We are assuming the organization for your snowflake account is {yellow}{ORGANIZATION}{end}
 
