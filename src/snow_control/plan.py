@@ -279,6 +279,11 @@ def get_current_users_roles(state: ControlState, user: str) -> set:
             RETRIEVE_GRANTS_TO_USER_QUERY.format(qid=qid)
         ).fetchall()
     )
+
+    # Removes grants not associated with a role from system actions like create WORKSPACE
+    # These grants look like: USER$<USER NAME>
+    roles_granted = set(list(filter(None,roles_granted))) 
+
     return roles_granted
 
 
