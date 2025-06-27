@@ -78,21 +78,26 @@ def plan(
             for user, config in user_configs.items():
                 user_plan |= plan_single_user(state, user, config)
     else:
-        role_plans, user_plans = {}, {}
-        role_plans = state.executor.map(
+        role_plans, user_plans = [], []
+        role_plans = list(state.executor.map(
             plan_single_role,
             repeat(state),
             repeat(objects),
             repeat(role_profiles),
             *zip(*role_configs.items()),
-        )
+        ))
+        
         if plan_users:
-            user_plans = state.executor.map(
+            user_plans = list(state.executor.map(
                 plan_single_user, repeat(state), *zip(*user_configs.items())
-            )
-        if role_plan:
+            ))
+            
+        if role_plans:            
             role_plan = reduce(lambda x, y: x | y, role_plans)
+
+        if user_plans:
             user_plan = reduce(lambda x, y: x | y, user_plans, {})
+    
     write_out_snowplan(account, role_plan, user_plan, plan_id=PLAN_ID)
     # log_snowplan(state,account)
 
